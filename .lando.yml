@@ -1,0 +1,19 @@
+name: portal-2022
+recipe: laravel
+proxy:
+  appserver:
+    - "portal.lndo.site"
+config:
+  php: '8.0'
+  via: apache
+  webroot: ./public
+tooling:
+  migrate:
+    description: Initialize sihq for local development
+    cmd:
+      - appserver: "php artisan migrate"
+  queue:
+    description: Queue
+    cmd:
+      # - appserver: "php artisan queue:drop-jobs"
+      - appserver: "php artisan queue:work --tries=1"
